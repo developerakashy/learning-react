@@ -1,0 +1,165 @@
+.stroke{
+    text-decoration: line-through;
+}
+
+body{
+    margin: 0%;
+    background-color: black;
+    font-family: sans-serif;
+}
+
+
+
+#root{
+    margin: 0 auto;
+    border: 5px solid;
+    width: 50%;
+    /* background-color: rgb(185, 185, 185); */
+}
+
+/* #root > *{
+    width: 60%;
+} */
+
+form{
+    width:50%;
+    margin: 12px auto;
+    display: flex;
+    justify-content: space-around;
+}
+
+.onGoing{
+    margin: 40px auto;
+    width: 50%;
+    color: white;
+}
+
+.completed{
+    margin: auto;
+    width: 50%;
+}
+
+
+form > input{
+    width: 300px;
+    height: 30px;
+    padding: 5px 15px;
+    border: none;
+    outline: none;
+    border-radius: 16px;
+    font-size: 1.1rem;
+    color: rgb(225, 225, 225);
+    font-weight: 500;
+    letter-spacing: 0.8px;
+    background-color: rgb(65, 65, 65);
+
+}
+
+form > input:focus{
+    outline: 2px solid rgb(209, 209, 209)
+}
+
+form > button{
+    align-self: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: blue;
+    border-radius: 45px;
+    height: 40px;
+    width: 40px;
+    font-size: 2rem;
+    font-weight: 900;
+    color: white;
+    border: none;
+    padding-bottom: 2px;
+    padding-left: 5px;
+}
+
+form > button:hover{
+    background-color: rgb(0, 0, 192);
+    transition: .2s ease-in-out;
+}
+
+
+.trash{
+    height: 20px;
+    width: 20px;
+    background-color: transparent;
+    border-radius: 45px;
+}
+
+.edit{
+    height: 16px;
+    width: 16px;
+    background-color: transparent;
+
+}
+
+.onGoing > section{
+    display: flex;
+    /* justify-content: space-between; */
+    margin-bottom: 1rem;
+    background-color: rgb(40, 40, 40);
+    padding: 10px 5px;
+    border-radius: 10px;
+    border: 2px solid rgb(51, 51, 51);
+
+}
+
+.taskView{
+    width: 100%;
+}
+
+.taskView > input[type="checkbox"]{
+    width: 20px;
+    margin: 0 5px;
+    border-radius: 24px;
+}
+
+.taskView > input[type="text"]{
+    width: 65%;
+    padding: 0rem 10px;
+    font-size: 1rem;
+    letter-spacing: 0.8px;
+    color: white;
+    background-color: rgb(40, 40, 40);
+    border: none;
+}
+
+
+.del-btn{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 35px;
+    width: 35px;
+    border: none;
+    background-color: rgb(198, 25, 25);
+    /* border: 2px solid white; */
+    padding-left: 5.5px;
+    border-radius: 24px;
+    margin: 0rem 0.5rem;
+
+}
+
+.del-btn:hover,.del-btn:focus{
+    background-color: rgb(155, 0, 0);
+    transition: .2s ease-in-out;
+}
+
+.edit-btn{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 35px;
+    width: 35px;
+    border-radius: 24px;
+    border: none;
+    background-color: blue;
+}
+
+.edit-btn:hover{
+    background-color: rgb(0, 0, 192);
+    transition: .2s ease-in-out;
+}
