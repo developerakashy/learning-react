@@ -4,6 +4,7 @@
 
 body{
     margin: 0%;
+    padding: 0%;
     background-color: black;
     font-family: sans-serif;
 }
@@ -13,47 +14,64 @@ body{
 #root{
     margin: 0 auto;
     border: 5px solid;
-    width: 50%;
+    min-width: 50%;
+    max-width: 90%;
     /* background-color: rgb(185, 185, 185); */
 }
+
+
 
 /* #root > *{
     width: 60%;
 } */
 
 form{
-    width:50%;
-    margin: 12px auto;
+    position: fixed;
+    top: 0px;
+    left: 0;
+    right: 0;
+    height: 80px;
+    width: 100%;
     display: flex;
-    justify-content: space-around;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    background-color: rgba(0, 0, 0, 0.412);
+    backdrop-filter: blur(2px);
+    /* border: 1px solid white; */
 }
 
 .onGoing{
-    margin: 40px auto;
-    width: 50%;
+    padding-top: 80px;
+    margin: 10px auto;
+    width: 100%;
     color: white;
 }
 
 .completed{
+    padding-top: 0%;
     margin: auto;
-    width: 50%;
+    width: 100%;
 }
 
 
 form > input{
-    width: 300px;
+    width: 70%;
     height: 30px;
     padding: 5px 15px;
     border: none;
     outline: none;
     border-radius: 16px;
     font-size: 1.1rem;
-    color: rgb(225, 225, 225);
+    color: rgb(255, 255, 255);
     font-weight: 500;
     letter-spacing: 0.8px;
     background-color: rgb(65, 65, 65);
+    z-index: 2;
 
 }
+
+
 
 form > input:focus{
     outline: 2px solid rgb(209, 209, 209)
@@ -74,6 +92,7 @@ form > button{
     border: none;
     padding-bottom: 2px;
     padding-left: 5px;
+    z-index: 2;
 }
 
 form > button:hover{
@@ -83,8 +102,8 @@ form > button:hover{
 
 
 .trash{
-    height: 20px;
-    width: 20px;
+    height: 18px;
+    width: 18px;
     background-color: transparent;
     border-radius: 45px;
 }
@@ -98,34 +117,59 @@ form > button:hover{
 
 .onGoing > section{
     display: flex;
-    /* justify-content: space-between; */
+    justify-content: space-between;
     margin-bottom: 1rem;
     background-color: rgb(40, 40, 40);
     padding: 10px 5px;
     border-radius: 10px;
-    border: 2px solid rgb(51, 51, 51);
+
 
 }
+
+.onGoing > section > div{
+    display: flex;
+    align-items: center;
+    padding: 0%;
+    /* height: 16px; */
+}
+
+.onGoing > section > div:nth-child(1){
+    width: 100%;
+    /* border: 1px solid; */
+}
+
+
 
 .taskView{
-    width: 100%;
+    /* width: 100%; */
+    border: 2px solid rgb(41, 41, 41);
 }
 
-.taskView > input[type="checkbox"]{
-    width: 20px;
+
+.taskView > div >  input[type="checkbox"]{
+    height: 18px;
+    width: 18px;
     margin: 0 5px;
-    border-radius: 24px;
 }
 
-.taskView > input[type="text"]{
-    width: 65%;
+.taskView  input[type="text"]{
+    width: 100%;
+    height: 30px;
     padding: 0rem 10px;
     font-size: 1rem;
     letter-spacing: 0.8px;
     color: white;
+    outline: none;
     background-color: rgb(40, 40, 40);
     border: none;
 }
+
+
+.focused{
+    border: 2px solid rgb(209, 209, 209);
+}
+
+
 
 
 .del-btn{
@@ -136,10 +180,8 @@ form > button:hover{
     width: 35px;
     border: none;
     background-color: rgb(198, 25, 25);
-    /* border: 2px solid white; */
-    padding-left: 5.5px;
     border-radius: 24px;
-    margin: 0rem 0.5rem;
+    margin: 0rem 0.3rem;
 
 }
 
@@ -157,6 +199,7 @@ form > button:hover{
     border-radius: 24px;
     border: none;
     background-color: blue;
+    margin: 0rem 0.3rem;
 }
 
 .edit-btn:hover{

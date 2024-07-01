@@ -27,8 +27,8 @@ class AddToDo extends Component{
             let localStorageTaskList = JSON.parse(localStorage.getItem('taskList'))
 
             this.setState({
-                taskList: localStorageTaskList.map(item => item.src !== 'edit' ? {...item,src:edit} : item),
-                count: Number(localStorage.getItem('counter')) + 1
+                taskList: localStorageTaskList.map(item => item.src !== 'edit' ? {...item, src:edit, isDisabled:true} : item),
+                count: Number(localStorage.getItem('counter'))
             })
         }
 
@@ -130,7 +130,11 @@ class AddToDo extends Component{
         }
 
         console.log(element[0].value)
-        element[0].focus()
+
+        setTimeout(()=>{
+            element[0].focus()
+        },100)
+
         console.log("focused")
 
     }
@@ -160,21 +164,28 @@ class AddToDo extends Component{
     render(){
 
         let taskToBeCompleted = this.state.onGoingTaskList.map(task =>
-            <section className="taskView" key={task.id}>
-                <input type="checkbox" checked={task.isCompleted} onChange={() => this.updateTaskStatus(task)}/>
-                <input type="text" className={task.isCompleted ? `stroke ${task.id}` : `${task.id}`} onChange={this.updateTaskName} id={task.id}  value={task.taskName} disabled={task.isDisabled}/>
-                <button className="del-btn" onClick={() => this.removeTask(task)}><img className="trash" src={del} alt="del"/></button>
-                <button className="edit-btn"  onClick={(event) => this.editTaskName(event,task)}><img className="edit" src={task.src} /></button>
-
+            <section className={task.isDisabled ? `taskView` : `taskView focused`} key={task.id}>
+                <div>
+                    <input type="checkbox" checked={task.isCompleted} onChange={() => this.updateTaskStatus(task)}/>
+                    <input type="text" className={task.isCompleted ? `stroke ${task.id}` : `${task.id}`} onChange={this.updateTaskName} id={task.id} value={task.taskName} disabled={task.isDisabled}/>
+                </div>
+                <div>
+                    <button className="del-btn" onClick={() => this.removeTask(task)}><img className="trash" src={del} alt="del"/></button>
+                    <button className="edit-btn"  onClick={(event) => this.editTaskName(event,task)}><img className="edit" src={task.src} /></button>
+                </div>
             </section>
 
         )
 
         let taskCompleted = this.state.completedTaskList.map(task =>
             <section className="taskView" key={task.id}>
-                <input type="checkbox" checked={task.isCompleted} onChange={() => this.updateTaskStatus(task)}/>
-                <input type="text" className={task.isCompleted ? `stroke ${task.id}` : `${task.id}`} onChange={this.updateTaskName} id={task.id}  value={task.taskName} disabled/>
-                <button className="del-btn" onClick={() => this.removeTask(task)}><img className="trash" src={del} alt="del"/></button>
+                <div>
+                    <input type="checkbox" checked={task.isCompleted} onChange={() => this.updateTaskStatus(task)}/>
+                    <input type="text" className={task.isCompleted ? `stroke ${task.id}` : `${task.id}`} onChange={this.updateTaskName} id={task.id}  value={task.taskName} disabled/>
+                </div>
+                <div>
+                    <button className="del-btn" onClick={() => this.removeTask(task)}><img className="trash" src={del} alt="del"/></button>
+                </div>
 
             </section>
 
