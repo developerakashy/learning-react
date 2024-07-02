@@ -129,13 +129,14 @@ class AddToDo extends Component{
 
         }
 
-        console.log(element[0].value)
 
         setTimeout(()=>{
             element[0].focus()
         },100)
 
         console.log("focused")
+
+        event.preventDefault()
 
     }
 
@@ -164,37 +165,40 @@ class AddToDo extends Component{
     render(){
 
         let taskToBeCompleted = this.state.onGoingTaskList.map(task =>
-            <section className={task.isDisabled ? `taskView` : `taskView focused`} key={task.id}>
-                <div>
-                    <input type="checkbox" checked={task.isCompleted} onChange={() => this.updateTaskStatus(task)}/>
-                    <input type="text" className={task.isCompleted ? `stroke ${task.id}` : `${task.id}`} onChange={this.updateTaskName} id={task.id} value={task.taskName} disabled={task.isDisabled}/>
-                </div>
-                <div>
-                    <button className="del-btn" onClick={() => this.removeTask(task)}><img className="trash" src={del} alt="del"/></button>
-                    <button className="edit-btn"  onClick={(event) => this.editTaskName(event,task)}><img className="edit" src={task.src} /></button>
-                </div>
-            </section>
+            // <section className={task.isDisabled ? `taskView` : `taskView focused`} key={task.id}>
+                <form className={task.isDisabled ? `taskView` : `taskView focused`} key={task.id}>
+                    <div>
+                        <input type="checkbox" checked={task.isCompleted} onChange={() => this.updateTaskStatus(task)}/>
+                        <input type="text" className={task.isCompleted ? `stroke ${task.id}` : `${task.id}`} onClick={this.updateTaskName} id={task.id} defaultValue={task.taskName} disabled={task.isDisabled}/>
+                    </div>
+                    <div>
+                        <button className="del-btn" onClick={() => this.removeTask(task)}><img className="trash" src={del} alt="del"/></button>
+                        <button className="edit-btn"  onClick={(event) => this.editTaskName(event,task)}><img className="edit" src={task.src} /></button>
+                    </div>
+                </form>
+            // </section>
 
         )
 
         let taskCompleted = this.state.completedTaskList.map(task =>
-            <section className="taskView" key={task.id}>
-                <div>
-                    <input type="checkbox" checked={task.isCompleted} onChange={() => this.updateTaskStatus(task)}/>
-                    <input type="text" className={task.isCompleted ? `stroke ${task.id}` : `${task.id}`} onChange={this.updateTaskName} id={task.id}  value={task.taskName} disabled/>
-                </div>
-                <div>
-                    <button className="del-btn" onClick={() => this.removeTask(task)}><img className="trash" src={del} alt="del"/></button>
-                </div>
-
-            </section>
+            // <section className="taskView" key={task.id}>
+                <form className={task.isDisabled ? `taskView` : `taskView focused`} key={task.id}>
+                    <div>
+                        <input type="checkbox" checked={task.isCompleted} onChange={() => this.updateTaskStatus(task)}/>
+                        <input type="text" className={task.isCompleted ? `stroke ${task.id}` : `${task.id}`} onChange={this.updateTaskName} id={task.id}  value={task.taskName} disabled/>
+                    </div>
+                    <div>
+                        <button className="del-btn" onClick={() => this.removeTask(task)}><img className="trash" src={del} alt="del"/></button>
+                    </div>
+                </form>
+            // </section>
 
         )
 
         return(
 
             <>
-            <form>
+            <form className="addToDo">
                 <input type="text" placeholder="write your next task..." ref={this.inputRef}/>
                 <button type="submit" onClick={this.addClickHandler}>＋</button>
             </form>
