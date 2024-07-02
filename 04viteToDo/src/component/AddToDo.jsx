@@ -46,13 +46,14 @@ class AddToDo extends Component{
         localStorage.setItem('counter', this.state.count)
 
         if(prevState.taskList !== this.state.taskList){
+            console.log('component didupdate inside if')
             this.setState({
                 onGoingTaskList: this.state.taskList.filter(item => item.isCompleted === false),
                 completedTaskList: this.state.taskList.filter(item => item.isCompleted === true)
             })
         }
 
-        console.log('component didupdate')
+
 
     }
 
@@ -61,7 +62,9 @@ class AddToDo extends Component{
     addClickHandler = (event) => {
         let input = this.inputRef.current
 
-        if(input.value.length < 1){
+        let trimmedInputValue = input.value.trim()
+
+        if(trimmedInputValue < 1){
             alert(`can't add task since input field is empty`)
             input.focus()
             return
@@ -69,7 +72,7 @@ class AddToDo extends Component{
 
         const taskDetail = {
             id: this.state.count,
-            taskName: input.value,
+            taskName: trimmedInputValue,
             isCompleted: false,
             src:edit,
             isDisabled: true
@@ -106,6 +109,9 @@ class AddToDo extends Component{
     editTaskName(event, {id, isDisabled}){
         let element = document.getElementsByClassName(id)
 
+        console.log("Non-Trimmed:",element[0].value, element[0].value.length)
+        console.log("Trimmed: ", element[0].value, element[0].value.trim().length )
+
         if(isDisabled){
             this.setState({
                 taskList: this.state.taskList.map(item =>
@@ -127,6 +133,13 @@ class AddToDo extends Component{
                 taskList: prevstate.taskList.filter(item => item.id !== id)
             }))
 
+        }else{
+            this.setState(prevstate => ({
+                taskList: prevstate.taskList.map(item =>
+                    item.id === id ? {...item, taskName:element[0].value.trim()}
+                    : item
+                )
+            }))
         }
 
 
@@ -137,18 +150,6 @@ class AddToDo extends Component{
         console.log("focused")
 
         event.preventDefault()
-
-    }
-
-    updateTaskName = (event) => {
-
-        this.setState(prevstate => ({
-            taskList: prevstate.taskList.map(item =>
-                item.id === Number(event.target.id) ? {...item, taskName:event.target.value}
-                : item
-            )
-        }))
-
 
     }
 
@@ -163,17 +164,19 @@ class AddToDo extends Component{
     }
 
     render(){
+        console.log("rendered")
 
         let taskToBeCompleted = this.state.onGoingTaskList.map(task =>
             // <section className={task.isDisabled ? `taskView` : `taskView focused`} key={task.id}>
                 <form className={task.isDisabled ? `taskView` : `taskView focused`} key={task.id}>
                     <div>
                         <input type="checkbox" checked={task.isCompleted} onChange={() => this.updateTaskStatus(task)}/>
-                        <input type="text" className={task.isCompleted ? `stroke ${task.id}` : `${task.id}`} onClick={this.updateTaskName} id={task.id} defaultValue={task.taskName} disabled={task.isDisabled}/>
+                        <input type="text" className={task.isCompleted ? `stroke ${task.id}` : `${task.id}`} id={task.id} defaultValue={task.taskName} disabled={task.isDisabled}/>
                     </div>
+                    {console.log(task.taskName.length)}
                     <div>
-                        <button className="del-btn" onClick={() => this.removeTask(task)}><img className="trash" src={del} alt="del"/></button>
-                        <button className="edit-btn"  onClick={(event) => this.editTaskName(event,task)}><img className="edit" src={task.src} /></button>
+                        <button className="del-btn" type="button" onClick={() => this.removeTask(task)}><img className="trash" src={del} alt="del"/></button>
+                        <button className="edit-btn" type="submit" onClick={(event) => this.editTaskName(event,task)}><img className="edit" src={task.src} /></button>
                     </div>
                 </form>
             // </section>
@@ -185,7 +188,7 @@ class AddToDo extends Component{
                 <form className={task.isDisabled ? `taskView` : `taskView focused`} key={task.id}>
                     <div>
                         <input type="checkbox" checked={task.isCompleted} onChange={() => this.updateTaskStatus(task)}/>
-                        <input type="text" className={task.isCompleted ? `stroke ${task.id}` : `${task.id}`} onChange={this.updateTaskName} id={task.id}  value={task.taskName} disabled/>
+                        <input type="text" className={task.isCompleted ? `stroke ${task.id}` : `${task.id}`}  id={task.id}  value={task.taskName} disabled/>
                     </div>
                     <div>
                         <button className="del-btn" onClick={() => this.removeTask(task)}><img className="trash" src={del} alt="del"/></button>
