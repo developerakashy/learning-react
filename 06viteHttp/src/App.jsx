@@ -7,12 +7,24 @@ import PostForm from "./component/PostForm"
 import PostList from "./component/PostList"
 import ClassCounterOne from "./component/ClassCounterOne"
 import HookCounterOne from "./component/HookCounterOne"
+import ClassMouse from "./component/ClassMouse"
+import HookMouse from "./component/HookMouse"
+import MouseCointainer from "./component/MouseContainer"
+import IntervalClassCounter from "./component/IntervalClassCounter"
+import IntervalHookCounter from "./component/IntervalHookCounter"
+import DataFetching from "./component/DataFetching"
 
 function App() {
 
   return (
     <>
-      <HookCounterOne/>
+      <DataFetching/>
+      {/* <IntervalHookCounter/> */}
+      {/* <IntervalClassCounter/> */}
+      {/* <MouseCointainer/> */}
+      {/* <HookMouse/> */}
+      {/* <ClassMouse/> */}
+      {/* <HookCounterOne/> */}
       {/* <ClassCounterOne/> */}
       {/* <HookCounterFour/> */}
       {/* <HookCounterThree/> */}

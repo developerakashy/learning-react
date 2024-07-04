@@ -5,7 +5,8 @@ class ClassCounterOne extends Component{
         super()
 
         this.state = {
-            count: 0
+            count: 0,
+            name: ''
         }
     }
 
@@ -13,8 +14,11 @@ class ClassCounterOne extends Component{
         document.title = `Clicked ${this.state.count} times`
     }
 
-    componentDidUpdate(){
-        document.title = `Clicked ${this.state.count} times`
+    componentDidUpdate(prevProps,prevState){
+
+        if(this.state.count !== prevState.count){
+            document.title = `Clicked ${this.state.count} times`
+        }
     }
 
     incrementCount = () => {
@@ -23,10 +27,17 @@ class ClassCounterOne extends Component{
         })
     }
 
+    inputChangeHandler = (e) => {
+        this.setState({
+            name: e.target.value
+        })
+    }
+
     render(){
         return(
             <div>
-                <h1>Count: {this.state.count}</h1>
+                <h1>Class Count: {this.state.count}</h1>
+                <input type="text" value={this.state.name} onChange={this.inputChangeHandler}/>
                 <button onClick={this.incrementCount}>Increment</button>
             </div>
         )
