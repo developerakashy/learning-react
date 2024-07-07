@@ -18,9 +18,9 @@ function App() {
 
   return (
     <>
-      <DataFetching/>
-      {/* <IntervalHookCounter/> */}
-      {/* <IntervalClassCounter/> */}
+      {/* <DataFetching/> */}
+      <IntervalHookCounter/>
+      <IntervalClassCounter/>
       {/* <MouseCointainer/> */}
       {/* <HookMouse/> */}
       {/* <ClassMouse/> */}

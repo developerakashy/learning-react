@@ -15,6 +15,7 @@ class IntervalClassCounter extends Component{
     }
 
     componentWillUnmount(){
+        console.log("unmount")
         clearInterval(this.interval)
     }
 

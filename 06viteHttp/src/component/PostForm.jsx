@@ -33,6 +33,7 @@ class PostForm extends Component {
   };
 
   render() {
+    console.log("render")
     const { userName, title, body } = this.state;
 
     return (

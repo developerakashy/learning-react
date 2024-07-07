@@ -10,13 +10,13 @@ import PortalDemo from './component/PortalDemo'
 function App() {
   return (
     <>
-      <PortalDemo/>
+      {/* <PortalDemo/> */}
       {/* <FRParentInput/> */}
       {/* <FocusInput/> */}
       {/* <RefsDemo/> */}
       {/* <ParentComp/> */}
       {/* <FragmentDemo/> */}
-      {/* <LifeCycleA/> */}
+      <LifeCycleA/>
       {/* <Form /> */}
     </>
   )
