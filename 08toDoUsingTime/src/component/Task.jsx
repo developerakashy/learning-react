@@ -42,8 +42,8 @@ class Task extends Component{
           });
         }
 
-
         this.interval = setInterval(this.checkForTaskTimeStatus ,2000)
+
       }
 
 
@@ -63,7 +63,6 @@ class Task extends Component{
         })
 
 
-        // let tasks = this.state.onGoingTaskList
       }
 
 
@@ -155,6 +154,7 @@ class Task extends Component{
 
       editTaskName(event, { id, isDisabled }) {
         let element = document.getElementsByClassName(id);
+        console.log(element[1])
 
 
         if (isDisabled) {
@@ -182,7 +182,7 @@ class Task extends Component{
         } else {
           this.setState((prevstate) => ({
             taskList: prevstate.taskList.map((item) =>
-              item.id === id ? { ...item, taskName: element[0].value.trim() } : item
+              item.id === id ? { ...item, datetime: element[1].value, taskName: element[0].value.trim() } : item
             ),
           }));
         }
@@ -275,8 +275,8 @@ class Task extends Component{
                 <input
                   className={task.id}
                   type="datetime-local"
-                  value={task.datetime}
-                  onChange={(e) => this.setCompletionDateTime(e, task)}
+                  defaultValue={task.datetime}
+                  disabled={task.isDisabled}
                 />
               </div>
             </form>
@@ -308,16 +308,16 @@ class Task extends Component{
 
                 <div className='task-btn'>
                   <button
-                    className="del-btn"
-                    type="button"
+                    className='del-btn'
+                    type='button'
                     onClick={() => this.removeTask(task)}
                   >
-                    <img className="trash" src={del} alt="del" />
+                    <img className="trash" src={del} alt='del' />
                   </button>
 
                   <button
-                    className="edit-btn"
-                    type="submit"
+                    className='edit-btn'
+                    type='submit'
                     onClick={(event) => this.editTaskName(event, task)}
                   >
                     <img className="edit" src={task.src} />
@@ -330,8 +330,9 @@ class Task extends Component{
               <div className='task-time'>
                 <input
                   type="datetime-local"
-                  value={task.datetime}
-                  onChange={(e) => this.setCompletionDateTime(e, task)}
+                  className={task.id}
+                  defaultValue={task.datetime}
+                  disabled={task.isDisabled}
                 />
               </div>
             </form>
@@ -375,7 +376,6 @@ class Task extends Component{
                   type="datetime-local"
                   value={task.datetime}
                   disabled
-                  onChange={(e) => this.setCompletionDateTime(e, task)}
                 />
               </div>
             </form>
@@ -414,6 +414,7 @@ class Task extends Component{
             <AllToDo onGoingTask={taskToBeCompleted.reverse()} delayedTask={delayedTask.reverse()}/>
             <CompletedToDo completedList={taskCompleted.reverse()} />
             <button className='logout' onClick={this.logout}>Logout</button>
+            <div className='username'>{this.props.username}</div>
           </>
         );
       }

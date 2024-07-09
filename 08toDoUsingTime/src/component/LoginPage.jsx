@@ -11,7 +11,9 @@ class LoginPage extends Component{
             users: [],
             username:this.props.username || '',
             password:'',
-            registerPage: false
+            registerPage: false,
+            usernameExist: false,
+            passwordError: '',
         }
 
 
@@ -31,7 +33,8 @@ class LoginPage extends Component{
         }else if(users){
 
             this.setState({
-                users: users
+                users: users,
+                usernameExist: false
             })
 
         }else{
@@ -53,10 +56,9 @@ class LoginPage extends Component{
 
     initiateLogin = () => {
         // console.log(this.state.users)
-        let userExist = this.state.users.filter(user => user.username === this.state.username && user.password === this.state.password)
+        let userExist = this.state.users.filter(user => user.username.toLowerCase() === this.state.username.toLowerCase() && user.password === this.state.password)
 
         if(userExist.length){
-            console.log(userExist)
             localStorage.setItem('isLoggedIn', JSON.stringify(userExist))
             setTimeout(() => {
                 this.setState({
@@ -64,6 +66,10 @@ class LoginPage extends Component{
                 })
 
             },100)
+        }else{
+            this.setState({
+                passwordError: 'wrong password'
+            })
         }
     }
 
@@ -73,14 +79,20 @@ class LoginPage extends Component{
     }
 
     checkUsername = (e) => {
-        this.userExist = this.state.users.filter(user => user.username.toLowerCase() === this.state.username.toLowerCase())
+        this.usernameExist = this.state.users.filter(user => user.username.toLowerCase() === this.state.username.toLowerCase())
 
-        if(this.userExist.length){
-            console.log("User Exist", this.userExist)
-
+        if(this.usernameExist.length){
+            this.setState({
+                usernameExist: true,
+                passwordError: ''
+            })
             // alert(`user exist try to login`)
         }else{
             console.log('Get on to register Page')
+            this.setState({
+                usernameExist: false,
+                passwordError: 'username does not exist. Try to register'
+            })
         }
     }
 
@@ -90,17 +102,18 @@ class LoginPage extends Component{
 
     render(){
         // console.log("render- Login");
-        const {isLoggedIn, username, password, users, registerPage} = this.state
+        const {isLoggedIn, username, password, users, registerPage, usernameExist, passwordError} = this.state
 
         return(
             registerPage ? <UserAuthentication/> :
-            isLoggedIn ? <Task username={username}/> :
+            isLoggedIn ? <Task username={username.toLowerCase()}/> :
 
             <div className='login-body'>
                 <form className='login-form' onSubmit={this.formHandler}>
                     <h2>Login</h2>
                     <label>Username:</label>
                     <input
+
                         type="text"
                         name='username'
                         placeholder='username'
@@ -109,6 +122,7 @@ class LoginPage extends Component{
                         onBlur={this.checkUsername}
                         required
                     />
+                    {usernameExist && username.length ? <p className='success'>username exist</p> : <p className='error'>{passwordError}</p>}
                     <label>Password</label>
                     <input
                         type="text"
